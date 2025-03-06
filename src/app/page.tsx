@@ -5,7 +5,7 @@ import Table from "./components/table/Table";
 
 export default function Home() {
   return (
-    <div className="flex flex-col justify-center items-center min-h-screen  bg-gray-100">
+    <div className="flex justify-center gap-4 pt-30  min-h-screen  bg-gray-100">
       <Form />
       <Table />
     </div>

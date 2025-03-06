@@ -4,9 +4,8 @@ import { useEffect, useState } from "react"
 import { CiEdit } from 'react-icons/ci';
 import { MdDeleteForever } from 'react-icons/md';
 
-
 const Table = () => {
-    const [users, setUsers] = useState<User[]>([])
+    const [users, setUsers] = useState<User[]>([]);
 
     useEffect(() => {
         api.get("/users")
@@ -17,9 +16,8 @@ const Table = () => {
     }, [])
 
     return (
-        <>
-            <h1 className="text-lg font-bold">Lista de usuários</h1>
-            <table className="bg-white w-1/3 mt-4 p-4 border border-gray-200 rounded-b-lg shadow-md">
+        <div>
+            <table className="bg-white p-4 border border-gray-200 rounded-b-lg shadow-md">
                 <thead>
                     <tr className="text-left bg-gray-100 text-gray-700">
                         <th className="px-4 py-2 border-b text-center">Nome completo</th>
@@ -44,7 +42,7 @@ const Table = () => {
                     ))}
                 </tbody>
             </table>
-        </>
+        </div>
     )
 }
 

@@ -1,10 +1,11 @@
 const Form = () => {
     function handleSubmit (e:React.FormEvent) {
         e.preventDefault();
-    }    
+    }   
+     
     return (
         <>
-            <form onSubmit={handleSubmit} className="bg-white p-4 rounded shadow-md w-1/3 mb-4" >
+            <form onSubmit={handleSubmit} className="bg-white p-4 rounded shadow-md w-1/3 h-full mb-4" >
                 <h1 className="text-2xl text-center mb-4 font-semibold">
                     Cadastro de Usuários
                 </h1>
