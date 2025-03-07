@@ -1,19 +1,20 @@
 import { useState } from 'react';
-import { addUser } from "../../hooks/useCreateUser";
 import { User } from '@/types/user';
+import useCreateUser from '@/hooks/useCreateUser';
 
-interface FormProps  {
+interface FormProps {
     onAddUser: (newUser: User) => void;
 };
 
 const Form = ({ onAddUser }: FormProps) => {
+    const { addUser } = useCreateUser();
     const [name, setName] = useState('');
     const [email, setEmail] = useState('');
     const [age, setAge] = useState(0);
 
     async function addNewUser() {
         if (!name || !email || !age) {
-            alert('Por favor preencha todos os campos')
+            alert('Por favor preencha todos os campos');
             return
         }
 
