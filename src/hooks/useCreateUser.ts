@@ -7,7 +7,8 @@ export async function addUser(userData: User): Promise<User | null> {
         return response.data;
     }
     catch (err) {
-        console.log(`Deu ruim`, err);
+        console.log(`Erro ao cadastrar novo usuário`, err);
         return null
     }
 }
+
