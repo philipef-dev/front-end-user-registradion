@@ -20,14 +20,14 @@ const useUsers = () => {
         } catch (err) {
             console.error(`Erro ao buscar usuário`, err);
             setError('Erro ao buscar usuários')
-        }
-    }
+        };
+    };
 
-    useEffect(() => {
-        getUsers();
-    }, []);
+    useEffect(() => { getUsers() }, [])
 
     return { users, getUsers, setUsers, error }
+
+
 }
 
 export default useUsers;

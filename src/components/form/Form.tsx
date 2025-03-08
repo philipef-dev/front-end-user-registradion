@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { User } from '@/types/user';
+import { NewUser, User } from '@/types/user';
 import useCreateUser from '@/hooks/useCreateUser';
 
 interface FormProps {
@@ -18,7 +18,7 @@ const Form = ({ onAddUser }: FormProps) => {
             return
         }
 
-        const newUser: User = { name, email, age };
+        const newUser: NewUser = { name, email, age };
 
         try {
             const createUser = await addUser(newUser)

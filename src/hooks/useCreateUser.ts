@@ -1,12 +1,12 @@
 import { useCallback, useState } from "react";
 import api from "@/app/services/api";
-import { User } from "@/types/user";
+import { NewUser, User } from "@/types/user";
 
 const useCreateUser = () => {
     const [loading, setLoading] = useState(false);
     const [erro, setErro] = useState<string | null>(null);
 
-    const addUser = useCallback(async (userData: User): Promise<User | null> => {
+    const addUser = useCallback(async (userData: NewUser): Promise<User | null> => {
         setLoading(true);
         setErro(null);
 

@@ -1,5 +1,5 @@
-import api from "@/app/services/api";
 import { useState } from "react";
+import axiosInstance from "@/app/services/api";
 
 const useDeleteUser = () => {
     const [loading, setLoading] = useState(false);
@@ -8,7 +8,7 @@ const useDeleteUser = () => {
         setLoading(true);
 
         try {
-            await api.delete(`/user/${id}`);
+            await axiosInstance.delete(`/users/${id}`);            
         } catch (error) {
             console.log('Erro ao deletar usuário', error);
         } finally {
