@@ -1,33 +1,23 @@
-import axiosInstance from "@/app/services/api";
+import { userService } from "@/app/services";
 import { User } from "@/types/user"
-import { useEffect, useState } from "react"
+import { useCallback, useState } from "react"
 
 const useUsers = () => {
     const [users, setUsers] = useState<User[]>([]);
     const [error, setError] = useState<string | null>(null);
 
-    async function getUsers() {
+    const getUsers = useCallback(async () => {
         try {
-            const response = await axiosInstance.get('/users');
-
-            if (Array.isArray(response.data) && response.data.length) {
-                setUsers(response.data);
-            } else {
-                setError('Nenhum usuário encontrado.');
-                return
-            }
-
+            const response = await userService.getUsers()
+            setUsers(response);
         } catch (err) {
             console.error(`Erro ao buscar usuário`, err);
-            setError('Erro ao buscar usuários')
-        };
-    };
-
-    useEffect(() => { getUsers() }, [])
-
-    return { users, getUsers, setUsers, error }
+            setError('Erro ao buscar usuários');
+        }
+    }, []);
 
 
+    return { users, getUsers, error }
 }
 
 export default useUsers;

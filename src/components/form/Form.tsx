@@ -1,39 +1,15 @@
 import { useState } from 'react';
-import { NewUser, User } from '@/types/user';
-import useCreateUser from '@/hooks/useCreateUser';
+import { User } from '@/types/user';
 
 interface FormProps {
-    onAddUser: (newUser: User) => void;
+    onSubmit: (newUser: User) => void;
 };
 
-const Form = ({ onAddUser }: FormProps) => {
-    const { addUser } = useCreateUser();
+const Form = ({ onSubmit }: FormProps) => {
     const [name, setName] = useState('');
     const [email, setEmail] = useState('');
     const [age, setAge] = useState(0);
-
-    async function addNewUser() {
-        if (!name || !email || !age) {
-            alert('Por favor preencha todos os campos');
-            return
-        }
-
-        const newUser: NewUser = { name, email, age };
-
-        try {
-            const createUser = await addUser(newUser)
-            if (createUser) {
-                onAddUser(createUser);
-                clearForm();
-            } else {
-                console.error('Erro ao criar usuário')
-            }
-        }
-        catch (err) {
-            console.error('Deu ruim padrinho', err)
-        }
-    }
-
+    
     function clearForm() {
         setName('');
         setEmail('');
@@ -42,7 +18,9 @@ const Form = ({ onAddUser }: FormProps) => {
 
     function handleSubmit(e: React.FormEvent) {
         e.preventDefault();
-        addNewUser();
+        const newUser: User = { name, email, age };
+        onSubmit(newUser);
+        clearForm()
     }
 
     return (
@@ -99,7 +77,6 @@ const Form = ({ onAddUser }: FormProps) => {
                 <div className="mt-4 text-center">
                     <button
                         type="submit"
-                        onClick={addNewUser}
                         className="bg-blue-500 hover:bg-blue-600 text-white px-4 py-2 transition-all rounded-md"
                     >
                         Salvar
