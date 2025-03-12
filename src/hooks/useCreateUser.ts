@@ -1,6 +1,6 @@
 import { useCallback, useState } from "react";
-import api from "@/app/services/api";
 import { NewUser, User } from "@/types/user";
+import { userService } from "@/app/services";
 
 const useCreateUser = () => {
     const [loading, setLoading] = useState(false);
@@ -11,8 +11,8 @@ const useCreateUser = () => {
         setErro(null);
 
         try {
-            const response = await api.post<User>("/user", userData);
-            return response.data
+            const response = await userService.createUser(userData);
+            return response
         } catch (err) {
             console.error("Erro ao cadastrar novo usuário", err);
             setErro('Erro ao cadastrar novo usuário');

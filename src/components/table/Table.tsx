@@ -5,14 +5,17 @@ import { MdDeleteForever } from 'react-icons/md';
 interface UserProps {
   users: User[];
   onDeleteUser: (id: string) => Promise<void>;
- // getUsers: () => Promise<void>;
+  onEditUser: (id: string, user: User) => Promise<void>
 }
 
-const Table = ({ users, onDeleteUser }: UserProps) => {
+const Table = ({ users, onDeleteUser, onEditUser }: UserProps) => {
   const handleDeleteUser = async (id: string) => {
     await onDeleteUser(id);
-    
   };
+
+  const handleEditUser = async (id: string, user: User) => {
+    await onEditUser(id, user)
+  }
 
   return (
     <div>
@@ -33,7 +36,7 @@ const Table = ({ users, onDeleteUser }: UserProps) => {
               <td className="px-4 py-2 border-b">{user.age}</td>
               <td className="px-4 py-2 border-b">
                 <div className="flex space-x-2">
-                  <button>
+                  <button type="button" onClick={() => handleEditUser(user.id!.toString(), user)}>
                     <CiEdit className="cursor-pointer" />
                   </button>
                   <button type="button" onClick={() => handleDeleteUser(user.id!.toString())}>
