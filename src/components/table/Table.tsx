@@ -13,8 +13,9 @@ const Table = ({ users, onDeleteUser, onEditUser }: UserProps) => {
     await onDeleteUser(id);
   };
 
-  const handleEditUser = async (id: string, user: User) => {
-    await onEditUser(id, user)
+  const handleEditUser = async (user: User) => {
+    if(!user.id) return
+    await onEditUser(user.id, user);
   }
 
   return (
@@ -36,7 +37,7 @@ const Table = ({ users, onDeleteUser, onEditUser }: UserProps) => {
               <td className="px-4 py-2 border-b">{user.age}</td>
               <td className="px-4 py-2 border-b">
                 <div className="flex space-x-2">
-                  <button type="button" onClick={() => handleEditUser(user.id!.toString(), user)}>
+                  <button type="button" onClick={() => handleEditUser(user)}>
                     <CiEdit className="cursor-pointer" />
                   </button>
                   <button type="button" onClick={() => handleDeleteUser(user.id!.toString())}>
