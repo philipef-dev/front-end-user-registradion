@@ -1,11 +1,11 @@
 "use client"
 
+import { useEffect } from "react";
+import { User } from "@/types/user";
 import Form from "../components/form/Form";
 import Table from "../components/table/Table";
-import { User } from "@/types/user";
 import useUsers from "@/hooks/useGetUsers";
 import useDeleteUser from "@/hooks/useDeleteUser";
-import { useEffect } from "react";
 import useCreateUser from "@/hooks/useCreateUser";
 import useUpgradeUsers from "@/hooks/useUpgradeUser";
 
@@ -27,6 +27,7 @@ export default function Home() {
 
   async function handleEditUser(id: string, user: User) {
     await upgradeUser(id, user);
+    await getUsers();
   }
 
   useEffect(() => {

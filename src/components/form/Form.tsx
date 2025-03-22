@@ -20,7 +20,7 @@ const Form = ({ onSubmit }: FormProps) => {
         e.preventDefault();
         const newUser: User = { name, email, age };
         onSubmit(newUser);
-        clearForm()
+        clearForm();
     }
 
     return (

@@ -29,8 +29,9 @@ const EditUserModal = ({ isOpen, onClose, userToEdit, onSave }: EditUserModalPro
             await userService.upgradeUser(user.id?.toString(), user);
             onSave(user);
             onClose();
-        } catch {
-            setError("Erro ao atualizar usuário.", );
+        } catch (err) {
+            console.error(`Erro ao buscar usuário`, err);
+            setError('Erro ao buscar usuários');
         } finally {
             setLoading(false);
         }
