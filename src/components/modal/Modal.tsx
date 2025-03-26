@@ -40,7 +40,7 @@ const EditUserModal = ({ isOpen, onClose, userToEdit, onSave }: EditUserModalPro
     if (!isOpen) return null;
 
     return (
-        <div className="fixed inset-0 flex items-center justify-center bg-black bg-opacity-50">
+        <div className="fixed inset-0 flex items-center justify-center bg-gray-100 bg-opacity-50">
             <div className="bg-white p-6 rounded-lg shadow-lg w-96">
                 <h2 className="text-xl font-semibold mb-4">Editar Usuário</h2>
                 {error && <div className="text-red-500 mb-2">{error}</div>}
