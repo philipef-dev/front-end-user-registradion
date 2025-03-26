@@ -1,6 +1,6 @@
 "use client"
 
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { User } from "@/types/user";
 import Form from "../components/form/Form";
 import Table from "../components/table/Table";
@@ -14,6 +14,8 @@ export default function Home() {
   const { deleteUser } = useDeleteUser()
   const { addUser } = useCreateUser();
   const { upgradeUser } = useUpgradeUsers();
+
+  const [isLoading, setIsLoading] = useState(true)
 
   async function handleAddUser(newUser: User) {
     await addUser(newUser);
@@ -31,13 +33,18 @@ export default function Home() {
   }
 
   useEffect(() => {
-    getUsers()
+    async function fetchData() {
+      setIsLoading(true);
+      await getUsers();
+      setIsLoading(false);
+    }
+    fetchData();
   }, [getUsers]);
 
   return (
     <div className="flex justify-center gap-4 pt-30  min-h-screen bg-gray-100">
       <Form onSubmit={handleAddUser} />
-      <Table onEditUser={handleEditUser} onDeleteUser={handleDeleteUser} users={users} />
+      <Table isLoading={isLoading} onEditUser={handleEditUser} onDeleteUser={handleDeleteUser} users={users} />
     </div>
   );
 }

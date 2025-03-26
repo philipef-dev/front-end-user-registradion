@@ -6,31 +6,39 @@ import { useState } from "react";
 
 interface UserProps {
   users: User[];
+  isLoading: boolean;
   onDeleteUser: (id: string) => Promise<void>;
   onEditUser: (id: string, user: User) => Promise<void>
 }
 
-const Table = ({ users, onDeleteUser, onEditUser }: UserProps) => {
+const Table = ({ users, onDeleteUser, onEditUser, isLoading }: UserProps) => {
   const [isModalOpen, setIsModalOpen] = useState(false);
-  const [userToEdit, setIsUserToEdit] = useState<User | null>(null);
+  const [userToEdit, setUserToEdit] = useState<User | null>(null);
 
   const handleDeleteUser = async (id: string) => {
     await onDeleteUser(id);
   };
 
   const handleEditUser = (user: User) => {
-    setIsUserToEdit(user);
+    setUserToEdit(user);
     setIsModalOpen(true);
   }
 
-  const handleSaveUser = (updateUser: User) => {
+  const handleSaveUserEdit = (updateUser: User) => {
     if (!updateUser.id) return
     onEditUser(updateUser.id?.toString(), updateUser);
   }
 
+  if (isLoading) {
+    return <p className="text-center text-blue-500 p-4">Carregando usuários...</p>;
+  }
+
+  // Renderiza a tabela ou mensagem "Nenhum usuário cadastrado" quando `users` estiver vazio.
   return (
     <div>
-      {users.length > 0 ? (
+      {users.length === 0 ? (
+        <p className="text-center text-red-500 p-4">Nenhum usuário cadastrado!</p>
+      ) : (
         <table className="bg-white p-4 border border-gray-200 rounded-b-lg shadow-md">
           <thead>
             <tr className="text-left bg-gray-100 text-gray-700">
@@ -60,18 +68,16 @@ const Table = ({ users, onDeleteUser, onEditUser }: UserProps) => {
             ))}
           </tbody>
         </table>
-      ) : (
-        <p className="text-center p-4">Nenhum usuário cadastrado</p>
       )}
 
       <EditUserModal
         isOpen={isModalOpen}
         onClose={() => setIsModalOpen(false)}
         userToEdit={userToEdit}
-        onSave={handleSaveUser}
+        onSave={handleSaveUserEdit}
       />
     </div >
-  );
+  )
 }
 
 export default Table;
